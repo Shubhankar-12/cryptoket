@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ResellNFT = () => (
-  <div>ResellNFT</div>
+  <div>Resell NFT</div>
 );
 
 export default ResellNFT;
