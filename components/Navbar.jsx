@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import Image from 'next/image';
 import images from '../assets';
+import { Button } from '.';
 
 const MenuItems = ({ isMobile, active, setActive }) => {
   const generateLinks = (i) => {
@@ -38,11 +39,11 @@ const MenuItems = ({ isMobile, active, setActive }) => {
   );
 };
 
-const ButtonGroup=()=>{
-  const hasConnected=false;
+const ButtonGroup = () => {
+  const hasConnected = false;
 
-  hasConnected?(<Button></Button>)
-}
+  return hasConnected ? (<Button />) : (<Button />);
+};
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
@@ -77,8 +78,8 @@ const Navbar = () => {
       </div>
       <div className="md:hidden flex">
         <MenuItems active={active} setActive={setActive} />
-        <div className='ml-4'>
-          <ButtonGroup/>
+        <div className="ml-4">
+          <ButtonGroup />
         </div>
       </div>
     </nav>

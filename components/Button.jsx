@@ -1,7 +1,8 @@
-import React from 'react';
 
 const Button = () => (
-  <div>Button</div>
+  <button type="button" className="nft-gradient">
+    Button
+  </button>
 );
 
 export default Button;
