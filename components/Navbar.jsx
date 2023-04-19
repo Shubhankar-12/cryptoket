@@ -38,6 +38,12 @@ const MenuItems = ({ isMobile, active, setActive }) => {
   );
 };
 
+const ButtonGroup=()=>{
+  const hasConnected=false;
+
+  hasConnected?(<Button></Button>)
+}
+
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [active, setActive] = useState('Explore NFTs');
@@ -70,9 +76,10 @@ const Navbar = () => {
         </div>
       </div>
       <div className="md:hidden flex">
-        <ul className="list-none flexCenter flex-row">
-          <MenuItems active={active} setActive={setActive} />
-        </ul>
+        <MenuItems active={active} setActive={setActive} />
+        <div className='ml-4'>
+          <ButtonGroup/>
+        </div>
       </div>
     </nav>
   );
