@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
 
 import Image from 'next/image';
-import { Banner, CreatorCard } from '../components';
+import { Banner, CreatorCard, NFTCard } from '../components';
 import images from '../assets';
 import { makeId } from '../utils/makeId';
 
@@ -85,23 +85,23 @@ const Home = () => {
             <div>
               SearchBar
             </div>
-            <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                <NFTCard
-                  key={`nft-${i}`}
-                  nft={{
-                    i,
-                    name: `Nifty NFT ${i}`,
-                    seller: `0x${makeId(3)}...${makeId(4)}`,
-                    owner: `0x${makeId(3)}...${makeId(4)}`,
-                    description: 'Cool NFTs on Sale',
-                  }}
-                />
-              ))}
-            </div>
+          </div>
+          <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+              <NFTCard
+                key={`nft-${i}`}
+                nft={{
+                  i,
+                  name: `Nifty NFT ${i}`,
+                  price: (10 - i * 0.569),
+                  seller: `0x${makeId(3)}...${makeId(4)}`,
+                  owner: `0x${makeId(3)}...${makeId(4)}`,
+                  description: 'Cool NFTs on Sale',
+                }}
+              />
+            ))}
           </div>
         </div>
-
       </div>
     </div>
   );
