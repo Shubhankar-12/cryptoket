@@ -77,6 +77,12 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div className="mt-10">
+          <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start">
+            <h1 className=" font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">Hot Bids</h1>
+          </div>
+        </div>
+
       </div>
     </div>
   );
