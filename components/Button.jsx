@@ -1,4 +1,3 @@
-
 const Button = ({ btnName, classStyles, handleClick }) => (
   <button
     type="button"
