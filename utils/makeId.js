@@ -1,6 +1,6 @@
 export const makeId = (length) => {
   let result = '';
-
+  // random id generator
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
 
