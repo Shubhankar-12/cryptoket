@@ -7,14 +7,19 @@ import { Button } from '../components';
 import images from '../assets';
 
 const CreateNft = () => {
-  const fileStyle = useMemo(() => (
-    `dark:bg-nft-black-1 bg-white border dark:border-white border-nft-gray-2 flex flex-col 
-    item-center p-5 p-5 rounded-sm border-dashed
-    ${isDragActive && 'border-file-active'}
-    ${isDragAccept && 'border-file-accept'}
-    ${isDragReject && 'border-file-reject'}
-    `
-  ), [isDragAccept, isDragActive, isDragReject]);
+  const theme = useTheme();
+  const [fileUrl, setFileUrl] = useState(null);
+
+  const onDrop = useCallback(() => {
+    // upload image to ipfs
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
+    onDrop,
+    accept: 'image/*',
+    maxSize: 5000000,
+  });
+
   return (
     <div className="flex justify-center sm:px-4 p-12">
       <div className="w-3/5 md:w-full">
