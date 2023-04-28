@@ -70,6 +70,18 @@ const CreateNft = () => {
           placeholder="NFT Name"
           handleClick={() => {}}
         />
+        <Input
+          inputType="textarea"
+          title="Description"
+          placeholder="NFT Description"
+          handleClick={() => {}}
+        />
+        <Input
+          inputType="number"
+          title="Price"
+          placeholder="NFT Price"
+          handleClick={() => {}}
+        />
       </div>
     </div>
   );
