@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { Button } from '../components';
+import { Button, Input } from '../components';
 import images from '../assets';
 
 const CreateNft = () => {
@@ -64,6 +64,12 @@ const CreateNft = () => {
             )}
           </div>
         </div>
+        <Input
+          inputType="input"
+          title="Name"
+          placeholder="NFT Name"
+          handleClick={() => {}}
+        />
       </div>
     </div>
   );
