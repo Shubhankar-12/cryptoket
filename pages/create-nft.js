@@ -82,6 +82,9 @@ const CreateNft = () => {
           placeholder="NFT Price"
           handleClick={() => {}}
         />
+        <div className="mt-7 w-full flex justify-end">
+          <Button btnName="Create NFT" classStyles="rounded-xl" handleClick={() => {}} />
+        </div>
       </div>
     </div>
   );
