@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import axios from 'axios';
+import { create as ipfsHttpClient } from 'ipfs-http-client';
 
 import { marketAddress, marketAddressABI } from './constant';
+
+const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
 export const NFTContext = React.createContext();
 
 export const NFTProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState('');
+    const nftCurrency = 'ETH';
     const checkIfWalletIsConnected = async () => {
         if (!window.ethereum) return alert('Please install Metamask!');
 
@@ -28,9 +32,18 @@ export const NFTProvider = ({ children }) => {
         setCurrentAccount(accounts[0]);
         window.location.reload();
     };
-    const nftCurrency = 'ETH';
+
+    const uploadToIPFS = async (file) => {
+        try {
+            const added = await client.add({ content: file });
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            return url;
+        } catch (error) {
+            console.log('Error uploading file to IPFS');
+        }
+    };
     return (
-        <NFTContext.Provider value={{ nftCurrency, currentAccount, connectWallet }}>
+        <NFTContext.Provider value={{ nftCurrency, currentAccount, connectWallet, uploadToIPFS }}>
             {children}
         </NFTContext.Provider>
     );
