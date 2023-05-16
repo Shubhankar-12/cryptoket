@@ -5,8 +5,7 @@ import axios from 'axios';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 
 import { marketAddress, marketAddressABI } from './constant';
-
-const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
+import { makeStorageClient } from '../lib/client';
 
 export const NFTContext = React.createContext();
 
@@ -35,11 +34,12 @@ export const NFTProvider = ({ children }) => {
 
     const uploadToIPFS = async (file) => {
         try {
-            const added = await client.add({ content: file });
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-            return url;
+            const client = makeStorageClient();
+            const cid = await client.put(file);
+            console.log('stored files with cid:', cid);
+            return cid;
         } catch (error) {
-            console.log('Error uploading file to IPFS');
+            console.log('Error uploading file to IPFS', error);
         }
     };
     return (
