@@ -36,7 +36,7 @@ const CreateNft = () => {
     `
   ), [isDragAccept, isDragActive, isDragReject]);
 
-  // console.log(formInput);
+  // console.log(theme);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
