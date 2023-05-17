@@ -65,14 +65,15 @@ const Home = () => {
                 />
               ))}
               {!hideButtons && (
-              <>
-                <div onClick={() => handleScroll('left')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 left-0 cursor-pointer">
-                  <Image src={images.left} layout="fill" objectFit="contain" alt="leftArrow" className={theme === 'light' ? 'filter invert' : ''} />
-                </div>
-                <div onClick={() => handleScroll('right')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 right-0 cursor-pointer">
-                  <Image src={images.right} layout="fill" objectFit="contain" alt="leftArrow" className={theme === 'light' ? 'filter invert' : ''} />
-                </div>
-              </>
+                <>
+                  {/* filter not working here */}
+                  <div onClick={() => handleScroll('left')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 left-0 cursor-pointer">
+                    <Image src={images.left} layout="fill" objectFit="contain" alt="leftArrow" className={theme === 'light' ? 'filter invert' : ''} />
+                  </div>
+                  <div onClick={() => handleScroll('right')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 right-0 cursor-pointer">
+                    <Image src={images.right} layout="fill" objectFit="contain" alt="leftArrow" className={theme === 'light' ? 'filter invert' : ''} />
+                  </div>
+                </>
               )}
             </div>
           </div>
