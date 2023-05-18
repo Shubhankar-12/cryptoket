@@ -7,6 +7,8 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { marketAddress, marketAddressABI } from './constant';
 import { makeStorageClient } from '../lib/client';
 
+const fetchContract = (signerOrProvider) => new ethers.Contract(marketAddress, marketAddressABI, signerOrProvider);
+
 export const NFTContext = React.createContext();
 
 export const NFTProvider = ({ children }) => {
@@ -23,6 +25,7 @@ export const NFTProvider = ({ children }) => {
 
     useEffect(() => {
         checkIfWalletIsConnected();
+        createSale('test', '0.025');
     }, []);
 
     const connectWallet = async () => {
@@ -32,16 +35,48 @@ export const NFTProvider = ({ children }) => {
         window.location.reload();
     };
 
-    const uploadToIPFS = async (file) => {
+    const uploadToIPFS = async (file, path) => {
         try {
             const client = makeStorageClient();
-            const cid = await client.put(file);
-            console.log('stored files with cid:', cid);
-            return cid;
+            const added = await client.put(file);
+            // console.log(`${cid}.ipfs.w3s.link/${path}`);
+            const url = `${added}.ipfs.w3s.link/${path}`;
+            return url;
         } catch (error) {
             console.log('Error uploading file to IPFS', error);
         }
     };
+
+    const createSale = async (url, formInputPrice, isReselling, id) => {
+        const web3Modal = new Web3Modal();
+        const connection = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+
+        const signer = provider.getSigner();
+        const price = ethers.utils.parseUnits(formInputPrice, 'ether');
+
+        const contract = fetchContract(signer);
+
+        console.log(contract);
+    };
+
+    const createNFT = async (formInput, fileUrl, path, router) => {
+        const { name, description, price } = formInput;
+        if (!name || !description || !price || !fileUrl) return;
+
+        const data = JSON.stringify({ name, description, price, image: fileUrl });
+        try {
+            const client = makeStorageClient();
+            const added = await client.put(data);
+            const url = `${added}.ipfs.w3s.link/${path}`;
+            console.log(url);
+            await createSale(url, price);
+            router.push('/');
+        } catch (error) {
+            console.log('Error uploading file to IPFS', error);
+        }
+    };
+
     return (
         <NFTContext.Provider value={{ nftCurrency, currentAccount, connectWallet, uploadToIPFS }}>
             {children}
