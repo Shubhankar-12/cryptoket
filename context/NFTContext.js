@@ -25,7 +25,6 @@ export const NFTProvider = ({ children }) => {
 
     useEffect(() => {
         checkIfWalletIsConnected();
-        createSale('test', '0.025');
     }, []);
 
     const connectWallet = async () => {
@@ -56,6 +55,11 @@ export const NFTProvider = ({ children }) => {
         const price = ethers.utils.parseUnits(formInputPrice, 'ether');
 
         const contract = fetchContract(signer);
+        const listingPrice = await contract.getListingPrice();
+
+        const transaction = await contract.createToken(url, price, { value: listingPrice.toString() });
+
+        await transaction.wait();
 
         console.log(contract);
     };
@@ -78,7 +82,7 @@ export const NFTProvider = ({ children }) => {
     };
 
     return (
-        <NFTContext.Provider value={{ nftCurrency, currentAccount, connectWallet, uploadToIPFS }}>
+        <NFTContext.Provider value={{ nftCurrency, currentAccount, connectWallet, uploadToIPFS, createNFT }}>
             {children}
         </NFTContext.Provider>
     );
