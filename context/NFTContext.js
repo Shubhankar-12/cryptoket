@@ -72,6 +72,7 @@ export const NFTProvider = ({ children }) => {
         try {
             const client = makeStorageClient();
             const added = await client.put(data);
+            console.log(added);
             const url = `${added}.ipfs.w3s.link/${path}`;
             console.log(url);
             await createSale(url, price);
