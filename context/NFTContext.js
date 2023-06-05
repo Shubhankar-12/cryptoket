@@ -68,6 +68,7 @@ export const NFTProvider = ({ children }) => {
         const { name, description, price } = formInput;
         if (!name || !description || !price || !fileUrl) return;
 
+        // file path unsolved
         const data = JSON.stringify({ name, description, price, image: fileUrl });
         try {
             const client = makeStorageClient();
