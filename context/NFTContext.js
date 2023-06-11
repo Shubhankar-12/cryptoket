@@ -3,9 +3,8 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
-
 import { marketAddress, marketAddressABI } from './constant';
-import { makeStorageClient } from '../lib/client';
+import { nftstorage } from '../lib/client';
 
 const fetchContract = (signerOrProvider) => new ethers.Contract(marketAddress, marketAddressABI, signerOrProvider);
 
@@ -34,13 +33,16 @@ export const NFTProvider = ({ children }) => {
         window.location.reload();
     };
 
-    const uploadToIPFS = async (file, path) => {
+    const uploadToIPFS = async (file) => {
+        const name = 'New NFT';
+        const description = 'New NFT Uploaded';
+
         try {
-            const client = makeStorageClient();
-            const added = await client.put(file);
-            // console.log(`${cid}.ipfs.w3s.link/${path}`);
-            const url = `${added}.ipfs.w3s.link/${path}`;
-            return url;
+            return nftstorage.store({
+                file,
+                name,
+                description,
+            });
         } catch (error) {
             console.log('Error uploading file to IPFS', error);
         }
@@ -64,19 +66,19 @@ export const NFTProvider = ({ children }) => {
         console.log(contract);
     };
 
-    const createNFT = async (formInput, fileUrl, path, router) => {
+    const createNFT = async (formInput, fileUrl, router) => {
         const { name, description, price } = formInput;
         if (!name || !description || !price || !fileUrl) return;
 
         // file path unsolved
-        const data = JSON.stringify({ name, description, price, image: fileUrl });
+        // const data = JSON.stringify({ name, description, price, image: fileUrl });
         try {
-            const client = makeStorageClient();
-            const added = await client.put(data);
-            console.log(added);
-            const url = `${added}.ipfs.w3s.link/${path}`;
-            console.log(url);
-            await createSale(url, price);
+            return nftstorage.store({
+                fileUrl,
+                name,
+                description,
+                price,
+            });
             router.push('/');
         } catch (error) {
             console.log('Error uploading file to IPFS', error);
