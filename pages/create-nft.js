@@ -17,11 +17,11 @@ const CreateNft = () => {
   const router = useRouter();
 
   const onDrop = useCallback(async (acceptedFile) => {
-    // upload image to ipfs
-    // const { path } = acceptedFile[0];
-    // const url = await uploadToIPFS(acceptedFile, path);
-    // console.log();
-    // setFileUrl(url);
+    upload image to ipfs
+    const { path } = acceptedFile[0];
+    const url = await uploadToIPFS(acceptedFile, path);
+    console.log();
+    setFileUrl(url);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
